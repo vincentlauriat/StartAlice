@@ -21,8 +21,10 @@
       staging ditto → codesign Developer ID + Hardened Runtime → DMG à layout Finder
       → notarisation `AppliMacVincentGithub` → staple
 - [x] `Scripts/make-dmg-background.swift` (fond installeur + flèche)
-- [ ] **Exécuter** une vraie release signée/notarisée : `./Scripts/release.sh 0.1.0`
-- [ ] Vérif indépendante : `spctl -a -t exec -vv`, `stapler validate`
+- [x] **Exécuté** : `./Scripts/release.sh 0.1.0` → `release/StartAlice-0.1.0.dmg` (727K),
+      notarisation Apple **Accepted** (submission ada3e611), staplé
+- [x] Vérif indépendante OK : `spctl` = accepted/Notarized Developer ID,
+      `codesign --deep --strict` valide, Hardened Runtime actif, `stapler validate` OK
 - Note : Hardened Runtime activé au moment du codesign (`--options runtime`),
   `ENABLE_HARDENED_RUNTIME` reste NO dans project.yml (comme MarkdownViewer).
 

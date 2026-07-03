@@ -5,7 +5,7 @@
 
 ## À faire (proche)
 - [ ] Tester manuellement en cliquant : update, lancement dev/packaged
-- [ ] Lancer une vraie release notarisée : `./Scripts/release.sh 0.1.0`
+- [ ] (optionnel) Publier : `gh release create v0.1.0 release/StartAlice-0.1.0.dmg`
 
 ## Backlog
 - [ ] Historique des backups de config avec restore ciblé
