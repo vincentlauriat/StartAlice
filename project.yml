@@ -1,0 +1,54 @@
+# StartAlice — launcher / updater natif pour OpenAlice.
+# Généré en projet Xcode via : xcodegen generate
+name: StartAlice
+options:
+  bundleIdPrefix: fr.lauriat
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: "KFLACS69T9"
+    SWIFT_VERSION: "5.0"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: NO   # passera à YES lors de la phase notarisation (voir PLAN.md)
+
+targets:
+  StartAlice:
+    type: application
+    platform: macOS
+    sources:
+      - Sources
+      - Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: fr.lauriat.StartAlice
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+    postCompileScripts:
+      - name: "Rebuild full AppIcon.icns (workaround actool thinning)"
+        script: |
+          set -eu
+          ICONSET_SRC="${SRCROOT}/Resources/Assets.xcassets/AppIcon.appiconset"
+          TMP=$(mktemp -d)
+          ICONSET="$TMP/AppIcon.iconset"
+          mkdir "$ICONSET"
+          cp "$ICONSET_SRC"/icon_*.png "$ICONSET/"
+          iconutil -c icns "$ICONSET" -o "${TARGET_BUILD_DIR}/${WRAPPER_NAME}/Contents/Resources/AppIcon.icns"
+          echo "AppIcon.icns rebuilt with full size set"
+        basedOnDependencyAnalysis: false
+    info:
+      path: Info.plist
+      properties:
+        CFBundleName: StartAlice
+        CFBundleDisplayName: StartAlice
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSMinimumSystemVersion: "13.0"
+        LSApplicationCategoryType: public.app-category.developer-tools
+        NSHumanReadableCopyright: "© 2026 Vincent Lauriat"
+        # L'app pilote git/pnpm et Terminal.app : non sandboxée, usage développeur local.
+        # Au 1er lancement macOS demandera l'autorisation « Automation » pour Terminal (TCC).

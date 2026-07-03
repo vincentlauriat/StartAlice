@@ -1,0 +1,20 @@
+# Xcode / xcodegen
+*.xcodeproj/
+!project.yml
+# généré par xcodegen depuis project.yml
+Info.plist
+DerivedData/
+build/
+.build/
+*.xcuserstate
+xcuserdata/
+
+# Outils de session (OMC, etc.)
+.omc/
+
+# macOS
+.DS_Store
+
+# Release artefacts
+dist/
+*.dmg
