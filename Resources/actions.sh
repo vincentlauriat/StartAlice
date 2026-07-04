@@ -100,10 +100,14 @@ case "$CMD" in
     echo
     echo "→ git fetch origin…"
     git fetch origin || { echo "✗ fetch échoué."; exit 1; }
-    if [ -n "$(git status --porcelain)" ]; then
-      echo "⚠️ Le working tree a des modifs non-committées :"
-      git status --short
-      echo "   Merge non lancé pour ne rien écraser. Commit/stash puis relance."
+    # On ne bloque que sur des modifs SUIVIES non-committées (elles pourraient être
+    # écrasées par le merge). Les fichiers non suivis (.omc/, scripts perso…)
+    # n'interfèrent pas avec un merge → on les laisse passer.
+    if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+      echo "⚠️ Des modifications suivies non-committées bloquent le merge :"
+      git status --short --untracked-files=no
+      echo "   Commit ou stash ces changements puis relance."
+      echo "   (Les fichiers non suivis sont ignorés — ils ne gênent pas la mise à jour.)"
       pause_end; exit 1
     fi
     echo "→ git merge origin/master…"
