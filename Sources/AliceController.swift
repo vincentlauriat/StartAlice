@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
 
-/// État + actions du launcher. La logique lourde (git, pnpm, backup, lancement)
+/// État + actions du launcher. La logique lourde (git, pnpm, backup, install, lancement)
 /// vit dans `actions.sh` embarqué dans le bundle ; ici on ne fait qu'orchestrer.
+/// Le statut est exposé de façon **sémantique** (`StatusKind`) et traduit à l'affichage.
 @MainActor
 final class AliceController: ObservableObject {
 
@@ -15,7 +16,7 @@ final class AliceController: ObservableObject {
     @Published var behindCount   = -1        // -1 = inconnu
     @Published var branch        = "—"
     @Published var repoMissing   = false
-    @Published var statusLine    = "Prêt."
+    @Published var status: StatusKind = .ready
     @Published var isBusy        = false
 
     /// À jour ssi 0 commit de retard et version locale ≥ dernière release connue.
@@ -31,23 +32,17 @@ final class AliceController: ObservableObject {
     // MARK: - Vérification de statut (in-app, lecture seule)
 
     func refresh() {
-        guard !actionsScript.isEmpty else {
-            statusLine = "actions.sh introuvable dans le bundle."
-            return
-        }
+        guard !actionsScript.isEmpty else { return }
         isBusy = true
-        statusLine = "Vérification…"
+        status = .checking
         let cmd = "bash \(actionsScript.shellQuoted) status \(repoPath.shellQuoted)"
         Task.detached(priority: .userInitiated) {
             let r = Runner.capture(cmd)
             await MainActor.run {
                 self.parseStatus(r.output)
                 self.isBusy = false
-                if self.repoMissing {
-                    self.statusLine = "Checkout OpenAlice introuvable — vérifie le chemin."
-                } else {
-                    self.statusLine = self.isUpToDate ? "À jour ✓" : "Mise à jour disponible."
-                }
+                self.status = self.repoMissing ? .repoMissing
+                            : (self.isUpToDate ? .upToDate : .updateAvailable)
             }
         }
     }
@@ -70,15 +65,16 @@ final class AliceController: ObservableObject {
 
     // MARK: - Actions (déléguées à Terminal.app)
 
-    func update()          { runVerb("update", note: "Mise à jour lancée dans Terminal…") }
-    func launchDev()       { runVerb("dev", note: "Lancement mode dev dans Terminal…") }
-    func launchPackaged()  { runVerb("packaged", note: "Build + app packagée dans Terminal…") }
-    func backupConfig()    { runVerb("backup", note: "Sauvegarde de la config dans Terminal…") }
+    func update()         { runVerb("update", then: .updateStarted) }
+    func launchDev()      { runVerb("dev", then: .devStarted) }
+    func launchPackaged() { runVerb("packaged", then: .packagedStarted) }
+    func backupConfig()   { runVerb("backup", then: .backupStarted) }
+    func installRepo()    { runVerb("install", then: .installStarted) }
 
-    private func runVerb(_ verb: String, note: String) {
+    private func runVerb(_ verb: String, then kind: StatusKind) {
         guard !actionsScript.isEmpty else { return }
         let cmd = "bash \(actionsScript.shellQuoted) \(verb) \(repoPath.shellQuoted)"
         Runner.runInTerminal(cmd)
-        statusLine = note
+        status = kind
     }
 }

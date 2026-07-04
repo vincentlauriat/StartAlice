@@ -66,6 +66,32 @@ case "$CMD" in
   backup)  backup_config; pause_end ;;
   restore) restore_latest; pause_end ;;
 
+  install)
+    echo "=== StartAlice — installation d'OpenAlice ==="
+    echo "Cible : $REPO"
+    if [ -d "$REPO/.git" ]; then
+      echo "✓ Déjà installé à cet emplacement."
+      pause_end; exit 0
+    fi
+    for tool in git pnpm; do
+      command -v "$tool" >/dev/null 2>&1 || {
+        echo "✗ '$tool' introuvable dans le PATH."
+        echo "  Installe Node/pnpm (ex: 'brew install node && npm i -g pnpm') puis relance."
+        pause_end; exit 1
+      }
+    done
+    mkdir -p "$(dirname "$REPO")"
+    echo "→ git clone https://github.com/TraderAlice/OpenAlice.git"
+    git clone https://github.com/TraderAlice/OpenAlice.git "$REPO" || { echo "✗ clone échoué."; pause_end; exit 1; }
+    cd "$REPO" || exit 1
+    echo "→ pnpm install (peut prendre plusieurs minutes)…"
+    pnpm install || { echo "✗ pnpm install échoué."; pause_end; exit 1; }
+    echo
+    echo "✓ OpenAlice installé — version : $(node -p "require('./package.json').version" 2>/dev/null)"
+    echo "  Reviens dans StartAlice et clique « Revérifier »."
+    pause_end
+    ;;
+
   update)
     echo "=== StartAlice — mise à jour d'OpenAlice ==="
     echo "Repo : $REPO"
