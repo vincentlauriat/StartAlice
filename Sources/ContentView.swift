@@ -106,6 +106,7 @@ struct ContentView: View {
 
     private var actions: some View {
         VStack(spacing: 10) {
+            // Mettre à jour — action primaire, pleine largeur
             Button { alice.update() } label: {
                 Label(alice.isUpToDate ? s.btnRecheckUpdate : s.btnUpdate,
                       systemImage: "arrow.down.circle.fill")
@@ -114,21 +115,25 @@ struct ContentView: View {
             .controlSize(.large)
             .buttonStyle(.borderedProminent)
 
+            // Lancer l'app — pleine largeur, même taille que « Mettre à jour »
+            Button { alice.launchPackaged() } label: {
+                Label(s.btnApp, systemImage: "app.badge.fill")
+                    .frame(maxWidth: .infinity)
+            }
+            .controlSize(.large)
+            .buttonStyle(.bordered)
+
+            // Lancer (dev) + Sauvegarder la config sur une même ligne
             HStack(spacing: 10) {
                 Button { alice.launchDev() } label: {
                     Label(s.btnDev, systemImage: "hammer.fill").frame(maxWidth: .infinity)
                 }
-                Button { alice.launchPackaged() } label: {
-                    Label(s.btnApp, systemImage: "app.badge.fill").frame(maxWidth: .infinity)
+                Button { alice.backupConfig() } label: {
+                    Label(s.btnBackup, systemImage: "externaldrive.fill.badge.timemachine")
+                        .frame(maxWidth: .infinity)
                 }
             }
             .controlSize(.large)
-
-            Button { alice.backupConfig() } label: {
-                Label(s.btnBackup, systemImage: "externaldrive.fill.badge.timemachine")
-                    .frame(maxWidth: .infinity)
-            }
-            .controlSize(.regular)
         }
     }
 
