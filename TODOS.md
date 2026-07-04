@@ -4,8 +4,8 @@
 - (rien)
 
 ## À faire (proche)
-- [ ] Tester manuellement en cliquant : update, lancement dev/packaged
 - [ ] Ajouter une vraie capture d'écran de l'app dans docs/ (TCC bloque la capture auto)
+- [ ] Page produit github.io + entrée dans lauriat.fr
 
 ## Backlog
 - [ ] Historique des backups de config avec restore ciblé
@@ -21,3 +21,5 @@
 - [x] i18n EN/FR (défaut = langue machine, switch runtime dans Paramètres)
 - [x] Détection + installation guidée d'OpenAlice (verbe `install` → git clone + pnpm install)
 - [x] README EN + README.fr.md + LICENSE MIT + bannière (make-banner.swift)
+- [x] Repo public vincentlauriat/StartAlice + release v0.2.1
+- [x] 0.2.2 : auto-open UI (dev), re-scan au focus, réorg boutons → release v0.2.2 publiée

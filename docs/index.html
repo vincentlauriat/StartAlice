@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StartAlice — One-click updater & launcher for OpenAlice</title>
+<meta name="description" content="StartAlice is a native macOS app that updates and launches OpenAlice, the open-source AI trading agent, in one click. Bilingual EN/FR, signed & notarized.">
+<meta property="og:title" content="StartAlice — updater & launcher for OpenAlice">
+<meta property="og:description" content="Update and launch OpenAlice, the open-source AI trading agent, in one click. macOS, EN/FR.">
+<meta property="og:image" content="https://vincentlauriat.github.io/StartAlice/banner.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="icon.png">
+<style>
+  :root{
+    --bg:#0b1020; --bg2:#0f1630; --card:#141c38; --line:#243056;
+    --txt:#eaf0ff; --muted:#a7b3d6; --accent:#5b8bff; --accent2:#7c5cff;
+    --radius:16px; --maxw:1000px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 700px at 50% -10%,#1a2350 0%,var(--bg) 55%);
+    color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .en,.fr{display:none}
+  body.lang-en .en{display:revert}
+  body.lang-fr .fr{display:revert}
+  /* Nav */
+  nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);
+    background:rgba(11,16,32,.72);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:16px;height:60px}
+  nav img{width:30px;height:30px;border-radius:8px}
+  nav b{font-size:1.05rem}
+  nav .spacer{flex:1}
+  .langtog{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .langtog button{background:transparent;color:var(--muted);border:0;padding:5px 12px;
+    font-size:.82rem;cursor:pointer;font-weight:600}
+  .langtog button.on{background:var(--accent);color:#fff}
+  .ghlink{color:var(--muted);font-size:.9rem;font-weight:600}
+  /* Hero */
+  header{padding:72px 0 40px;text-align:center}
+  header img.banner{width:100%;max-width:760px;border-radius:var(--radius);
+    box-shadow:0 30px 80px rgba(0,0,0,.5);border:1px solid var(--line)}
+  h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;letter-spacing:-.02em;margin:28px 0 10px}
+  .tagline{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--muted);max-width:640px;margin:0 auto 28px}
+  .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+  .badge{font-size:.78rem;color:var(--muted);border:1px solid var(--line);
+    padding:4px 12px;border-radius:999px;background:var(--card)}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:12px;
+    font-weight:700;font-size:1rem;transition:transform .12s ease,box-shadow .2s ease;border:1px solid transparent}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+    box-shadow:0 12px 30px rgba(91,139,255,.35)}
+  .btn-ghost{background:var(--card);border-color:var(--line);color:var(--txt)}
+  .btn small{font-weight:500;opacity:.75;font-size:.78rem}
+  /* Sections */
+  section.block{padding:52px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(1.5rem,3.2vw,2rem);font-weight:800;letter-spacing:-.01em;margin-bottom:8px;text-align:center}
+  .sub{color:var(--muted);text-align:center;max-width:640px;margin:0 auto 36px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .feat .ic{font-size:1.6rem;margin-bottom:10px}
+  .feat h3{font-size:1.06rem;margin-bottom:6px}
+  .feat p{color:var(--muted);font-size:.94rem}
+  /* OpenAlice */
+  .oa{background:linear-gradient(135deg,var(--bg2),var(--card));border:1px solid var(--line);
+    border-radius:var(--radius);padding:34px}
+  .oa h2{text-align:left}
+  .oa .sub{text-align:left;margin-left:0}
+  .oa ul{list-style:none;margin-top:16px;display:grid;gap:12px}
+  .oa li{padding-left:28px;position:relative;color:var(--muted)}
+  .oa li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:700}
+  .oa b{color:var(--txt)}
+  /* Steps */
+  .steps{counter-reset:s;display:grid;gap:14px;max-width:640px;margin:0 auto}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 56px;position:relative}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:50%;
+    transform:translateY(-50%);width:28px;height:28px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem}
+  /* Footer */
+  footer{padding:40px 0 60px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.9rem}
+  footer a{color:var(--accent);font-weight:600}
+  code{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:.86em}
+</style>
+</head>
+<body class="lang-en">
+
+<nav><div class="wrap">
+  <img src="icon.png" alt="StartAlice"><b>StartAlice</b>
+  <div class="spacer"></div>
+  <div class="langtog">
+    <button id="l-en" class="on" onclick="setLang('en')">EN</button>
+    <button id="l-fr" onclick="setLang('fr')">FR</button>
+  </div>
+  <a class="ghlink" href="https://github.com/vincentlauriat/StartAlice" target="_blank" rel="noopener">GitHub ↗</a>
+</div></nav>
+
+<header><div class="wrap">
+  <img class="banner" src="banner.png" alt="StartAlice">
+  <h1>StartAlice</h1>
+  <p class="tagline">
+    <span class="en">One-click updater &amp; launcher for OpenAlice — the open-source AI trading agent.</span>
+    <span class="fr">Mise à jour &amp; lancement en un clic d'OpenAlice — l'agent de trading IA open-source.</span>
+  </p>
+  <div class="badges">
+    <span class="badge">macOS 13+</span>
+    <span class="badge">Apple-notarized</span>
+    <span class="badge">EN / FR</span>
+    <span class="badge">MIT</span>
+  </div>
+  <div class="cta">
+    <a class="btn btn-primary" href="https://github.com/vincentlauriat/StartAlice/releases/latest" target="_blank" rel="noopener">
+      ⬇ <span><span class="en">Download for macOS</span><span class="fr">Télécharger pour macOS</span><br><small>.dmg · signed &amp; notarized</small></span>
+    </a>
+    <a class="btn btn-ghost" href="https://github.com/TraderAlice/OpenAlice" target="_blank" rel="noopener">
+      <span class="en">What is OpenAlice?</span><span class="fr">Qu'est-ce qu'OpenAlice ?</span>
+    </a>
+  </div>
+</div></header>
+
+<section class="block"><div class="wrap">
+  <h2><span class="en">Why StartAlice?</span><span class="fr">Pourquoi StartAlice ?</span></h2>
+  <p class="sub">
+    <span class="en">OpenAlice ships new betas almost daily. StartAlice turns the whole update-and-run ritual into a single window with a single button.</span>
+    <span class="fr">OpenAlice sort de nouvelles betas presque chaque jour. StartAlice condense tout le rituel « mettre à jour puis lancer » en une fenêtre, un bouton.</span>
+  </p>
+  <div class="grid">
+    <div class="feat"><div class="ic">✅</div>
+      <h3><span class="en">Live status</span><span class="fr">Statut en direct</span></h3>
+      <p><span class="en">Local version vs. latest release, current branch, and how far behind you are — at a glance.</span>
+         <span class="fr">Version locale vs dernière release, branche et retard sur master — d'un coup d'œil.</span></p></div>
+    <div class="feat"><div class="ic">⬇️</div>
+      <h3><span class="en">One-click update</span><span class="fr">Mise à jour en un clic</span></h3>
+      <p><span class="en">Backs up your config, merges master, reinstalls dependencies.</span>
+         <span class="fr">Sauvegarde ta config, merge master, réinstalle les dépendances.</span></p></div>
+    <div class="feat"><div class="ic">▶️</div>
+      <h3><span class="en">Launch &amp; auto-open UI</span><span class="fr">Lancement + ouverture auto</span></h3>
+      <p><span class="en">Dev mode or packaged app — dev mode even opens the interface in your browser when it's ready.</span>
+         <span class="fr">Mode dev ou app packagée — le mode dev ouvre même l'interface dans ton navigateur quand elle est prête.</span></p></div>
+    <div class="feat"><div class="ic">📦</div>
+      <h3><span class="en">Guided install</span><span class="fr">Installation guidée</span></h3>
+      <p><span class="en">No checkout yet? StartAlice clones OpenAlice and runs the first install for you.</span>
+         <span class="fr">Pas de checkout ? StartAlice clone OpenAlice et lance la première installation.</span></p></div>
+    <div class="feat"><div class="ic">💾</div>
+      <h3><span class="en">Config-safe</span><span class="fr">Config préservée</span></h3>
+      <p><span class="en">Your settings live outside the repo — updates never touch them, and are snapshotted first.</span>
+         <span class="fr">Tes réglages vivent hors du repo — les mises à jour n'y touchent jamais, et sont sauvegardés d'abord.</span></p></div>
+    <div class="feat"><div class="ic">🌍</div>
+      <h3><span class="en">Bilingual</span><span class="fr">Bilingue</span></h3>
+      <p><span class="en">English &amp; French, following your Mac's language, switchable instantly.</span>
+         <span class="fr">Anglais &amp; français, selon la langue de ton Mac, changeable à tout moment.</span></p></div>
+  </div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="oa">
+    <h2><span class="en">What is OpenAlice?</span><span class="fr">Qu'est-ce qu'OpenAlice ?</span></h2>
+    <p class="sub">
+      <span class="en">OpenAlice is an open-source <b>AI trading agent</b>. Instead of a rigid bot, it gives an AI a managed workspace to research, iterate on quantitative strategies, and act — with live market data, technical analysis and news as context.</span>
+      <span class="fr">OpenAlice est un <b>agent de trading IA</b> open-source. Plutôt qu'un bot rigide, il donne à une IA un espace de travail géré pour faire de la recherche, itérer sur des stratégies quantitatives et agir — avec données de marché, analyse technique et actualités en contexte.</span>
+    </p>
+    <ul>
+      <li><span class="en"><b>Native agent CLIs</b> run inside persistent, sandboxable workspaces.</span>
+          <span class="fr"><b>CLIs d'agents natifs</b> dans des workspaces persistants et sandboxables.</span></li>
+      <li><span class="en"><b>Trading context on tap</b> — market data, indicators, news, and a broker SDK over MCP.</span>
+          <span class="fr"><b>Contexte de trading à la demande</b> — données, indicateurs, actualités et un SDK courtier via MCP.</span></li>
+      <li><span class="en"><b>Separation of concerns</b> — credentials and trading state in their own process; all state is plain files.</span>
+          <span class="fr"><b>Séparation des responsabilités</b> — identifiants et état de trading dans leur propre processus ; tout en fichiers.</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <h2><span class="en">Install in 3 steps</span><span class="fr">Installer en 3 étapes</span></h2>
+  <p class="sub">&nbsp;</p>
+  <div class="steps">
+    <div class="step"><span class="en">Download <code>StartAlice.dmg</code> from the latest release.</span><span class="fr">Télécharge <code>StartAlice.dmg</code> depuis la dernière release.</span></div>
+    <div class="step"><span class="en">Open the DMG and drag <b>StartAlice</b> into <b>Applications</b>.</span><span class="fr">Ouvre le DMG et glisse <b>StartAlice</b> dans <b>Applications</b>.</span></div>
+    <div class="step"><span class="en">Launch it — notarized by Apple, it opens with no warning.</span><span class="fr">Lance-le — notarisé par Apple, il s'ouvre sans avertissement.</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p>
+    <span class="en">Built by <a href="https://lauriat.fr" target="_blank" rel="noopener">Vincent Lauriat</a> · Open-source under MIT · </span>
+    <span class="fr">Réalisé par <a href="https://lauriat.fr" target="_blank" rel="noopener">Vincent Lauriat</a> · Open-source sous licence MIT · </span>
+    <a href="https://github.com/vincentlauriat/StartAlice" target="_blank" rel="noopener">GitHub</a>
+  </p>
+</div></footer>
+
+<script>
+  function setLang(l){
+    document.body.classList.remove('lang-en','lang-fr');
+    document.body.classList.add('lang-'+l);
+    document.documentElement.lang=l;
+    document.getElementById('l-en').classList.toggle('on',l==='en');
+    document.getElementById('l-fr').classList.toggle('on',l==='fr');
+    try{localStorage.setItem('sa-lang',l)}catch(e){}
+  }
+  (function(){
+    var saved;try{saved=localStorage.getItem('sa-lang')}catch(e){}
+    var l=saved||((navigator.language||'en').slice(0,2)==='fr'?'fr':'en');
+    setLang(l);
+  })();
+</script>
+</body>
+</html>
