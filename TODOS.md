@@ -5,7 +5,7 @@
 
 ## À faire (proche)
 - [ ] Ajouter une vraie capture d'écran de l'app dans docs/ (TCC bloque la capture auto)
-- [ ] Page produit github.io + entrée dans lauriat.fr
+- [ ] Déployer lauriat.fr en FTP (bash UploadSite.sh) pour publier la carte StartAlice
 
 ## Backlog
 - [ ] Historique des backups de config avec restore ciblé
@@ -23,3 +23,6 @@
 - [x] README EN + README.fr.md + LICENSE MIT + bannière (make-banner.swift)
 - [x] Repo public vincentlauriat/StartAlice + release v0.2.1
 - [x] 0.2.2 : auto-open UI (dev), re-scan au focus, réorg boutons → release v0.2.2 publiée
+- [x] Page produit GitHub Pages → https://vincentlauriat.github.io/StartAlice/ (docs/index.html)
+- [x] Site hub racine vincentlauriat.github.io (repo dédié, portfolio des apps)
+- [x] Carte StartAlice dans lauriat.fr (www/index.html + llms.txt, commit local — FTP à lancer)
