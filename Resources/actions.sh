@@ -125,9 +125,27 @@ case "$CMD" in
   dev)
     cd "$REPO" || { echo "✗ Repo introuvable : $REPO"; exit 1; }
     echo "=== OpenAlice — mode dev (pnpm dev) ==="
-    echo "Guardian → UTA + Alice + Vite (http://localhost:5173)"
+    echo "L'interface s'ouvrira automatiquement dans ton navigateur dès qu'elle est prête."
+    echo "(Garde cette fenêtre ouverte : elle fait tourner Alice. Ctrl-C pour arrêter.)"
     echo
-    exec pnpm dev
+    # On capture l'URL de l'interface depuis le banner Guardian
+    #   [guardian] UI       →  http://localhost:<port>
+    # puis on ouvre le navigateur quand Vite annonce qu'il est prêt ([vite] … localhost:<port>).
+    # Tout passe par un pipe : les vars persistent dans l'unique subshell du while.
+    esc=$(printf '\033')                       # pour retirer les codes couleur ANSI
+    ui_url=""
+    opened=0
+    pnpm dev 2>&1 | while IFS= read -r line; do
+      printf '%s\n' "$line"
+      clean=$(printf '%s' "$line" | sed "s/${esc}\[[0-9;]*m//g")
+      if [ -z "$ui_url" ] && printf '%s' "$clean" | grep -qE 'UI[[:space:]]*(→|->)'; then
+        ui_url=$(printf '%s' "$clean" | grep -oE 'https?://localhost:[0-9]+' | head -1)
+      fi
+      if [ "$opened" -eq 0 ] && [ -n "$ui_url" ] && printf '%s' "$clean" | grep -qiE '\[vite\][^Z]*localhost:[0-9]+'; then
+        open "$ui_url" && opened=1
+        printf '\n>>> Interface ouverte : %s\n\n' "$ui_url"
+      fi
+    done
     ;;
 
   packaged)
