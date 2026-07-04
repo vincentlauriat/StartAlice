@@ -25,6 +25,12 @@ final class AliceController: ObservableObject {
         return latestVersion == "—" || localVersion == latestVersion
     }
 
+    /// Une action modifiant la version tourne dans Terminal : au retour sur l'app,
+    /// on doit re-scanner pour refléter le résultat (update/install).
+    var awaitingResync: Bool {
+        status == .updateStarted || status == .installStarted
+    }
+
     private var actionsScript: String {
         Bundle.main.path(forResource: "actions", ofType: "sh") ?? ""
     }

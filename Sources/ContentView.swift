@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct ContentView: View {
     @StateObject private var alice = AliceController()
@@ -23,6 +24,11 @@ struct ContentView: View {
         .padding(22)
         .frame(width: 480, height: 540)
         .onAppear { alice.refresh() }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            // De retour sur StartAlice après une update/install lancée dans Terminal :
+            // re-scanner pour refléter le résultat (pastille + statut).
+            if alice.awaitingResync { alice.refresh() }
+        }
     }
 
     // MARK: - Header
