@@ -57,8 +57,13 @@ struct Strings {
     var btnUpdate: String        { tr("Mettre à jour", "Update") }
     var btnRecheckUpdate: String { tr("Revérifier / mettre à jour", "Re-check / update") }
     var btnDev: String           { tr("Lancer (dev)", "Launch (dev)") }
-    var btnApp: String           { tr("Lancer (app)", "Launch (app)") }
+    var btnApp: String           { tr("Lancer l'application", "Launch the app") }
     var btnBackup: String        { tr("Sauvegarder ma config", "Back up my config") }
+
+    // Libellés courts pour la rangée d'actions à trois boutons
+    var btnUpdateShort: String   { tr("Mettre à jour", "Update") }
+    var btnDevShort: String      { tr("Dev", "Dev") }
+    var btnBackupShort: String   { tr("Sauver", "Back up") }
     var btnInstall: String       { tr("Installer OpenAlice", "Install OpenAlice") }
     var installHint: String      { tr("OpenAlice n'est pas installé à cet emplacement.",
                                       "OpenAlice isn't installed at this location.") }

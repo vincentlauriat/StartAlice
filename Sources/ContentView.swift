@@ -106,34 +106,31 @@ struct ContentView: View {
 
     private var actions: some View {
         VStack(spacing: 10) {
-            // Mettre à jour — action primaire, pleine largeur
-            Button { alice.update() } label: {
-                Label(alice.isUpToDate ? s.btnRecheckUpdate : s.btnUpdate,
-                      systemImage: "arrow.down.circle.fill")
-                    .frame(maxWidth: .infinity)
-            }
-            .controlSize(.large)
-            .buttonStyle(.borderedProminent)
-
-            // Lancer l'app — pleine largeur, même taille que « Mettre à jour »
+            // Lancer l'app — action mise en avant, pleine largeur (référence de largeur)
             Button { alice.launchPackaged() } label: {
                 Label(s.btnApp, systemImage: "app.badge.fill")
                     .frame(maxWidth: .infinity)
             }
             .controlSize(.large)
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderedProminent)
 
-            // Lancer (dev) + Sauvegarder la config sur une même ligne
+            // Mettre à jour + Lancer (dev) + Sauvegarder — trois boutons sur une ligne
             HStack(spacing: 10) {
+                Button { alice.update() } label: {
+                    Label(s.btnUpdateShort, systemImage: "arrow.down.circle.fill")
+                        .frame(maxWidth: .infinity)
+                }
                 Button { alice.launchDev() } label: {
-                    Label(s.btnDev, systemImage: "hammer.fill").frame(maxWidth: .infinity)
+                    Label(s.btnDevShort, systemImage: "hammer.fill")
+                        .frame(maxWidth: .infinity)
                 }
                 Button { alice.backupConfig() } label: {
-                    Label(s.btnBackup, systemImage: "externaldrive.fill.badge.timemachine")
+                    Label(s.btnBackupShort, systemImage: "externaldrive.fill.badge.timemachine")
                         .frame(maxWidth: .infinity)
                 }
             }
             .controlSize(.large)
+            .buttonStyle(.bordered)
         }
     }
 
