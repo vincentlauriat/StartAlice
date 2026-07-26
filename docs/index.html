@@ -29,9 +29,7 @@
   }
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .en,.fr{display:none}
-  body.lang-en .en{display:revert}
-  body.lang-fr .fr{display:revert}
+  /* Les regles de bascule de langue vivent desormais dans base.css v1.0.3. */
   /* Nav */
   nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);
     background:rgba(11,16,32,.72);border-bottom:1px solid var(--line)}
@@ -117,14 +115,15 @@
 </style>
 </head>
 <body class="lang-en">
-<a class="skip" href="#top"><span class="en">Skip to content</span><span class="fr">Aller au contenu</span></a>
+<a class="skip" href="#top"><span class="en">Skip to content</span><span class="fr">Aller au contenu</span><span class="zh">跳至內容</span></a>
 
 <nav><div class="wrap">
   <img src="icon.png" alt="StartAlice"><b>StartAlice</b>
   <div class="spacer"></div>
-  <div class="langtog">
-    <button id="l-en" class="on" onclick="setLang('en')">EN</button>
-    <button id="l-fr" onclick="setLang('fr')">FR</button>
+  <div class="langtog" role="group" aria-label="Language / Langue / 語言">
+    <button type="button" data-lang="en" class="on" onclick="setLang('en')">EN</button>
+    <button type="button" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button type="button" data-lang="zh" onclick="setLang('zh')">中文</button>
   </div>
   <a class="ghlink" href="https://github.com/vincentlauriat/StartAlice" target="_blank" rel="noopener">GitHub ↗</a>
 </div></nav>
@@ -133,11 +132,11 @@
   <div>
     <h1>
       <span class="en">OpenAlice ships new betas almost daily.<br><span class="grad">One window, one button.</span></span>
-      <span class="fr">OpenAlice sort de nouvelles betas presque chaque jour.<br><span class="grad">Une fenêtre, un bouton.</span></span>
+      <span class="fr">OpenAlice sort de nouvelles betas presque chaque jour.<br><span class="grad">Une fenêtre, un bouton.</span></span><span class="zh">OpenAlice 幾乎每天都推出新的 beta 版。<br><span class="grad">一個視窗，一個按鈕。</span></span>
     </h1>
     <p class="tagline">
       <span class="en">StartAlice turns the whole update-and-run ritual into a single window — for OpenAlice, the open-source AI trading agent.</span>
-      <span class="fr">StartAlice condense tout le rituel « mettre à jour puis lancer » en une seule fenêtre — pour OpenAlice, l'agent de trading IA open-source.</span>
+      <span class="fr">StartAlice condense tout le rituel « mettre à jour puis lancer » en une seule fenêtre — pour OpenAlice, l'agent de trading IA open-source.</span><span class="zh">StartAlice 把「先更新再啟動」的整套流程濃縮到單一視窗——為開源 AI 交易代理程式 OpenAlice 而設計。</span>
     </p>
     <div class="badges">
       <span class="badge">macOS 13+</span>
@@ -147,10 +146,10 @@
     </div>
     <div class="cta">
       <a class="btn btn-primary" href="https://github.com/vincentlauriat/StartAlice/releases/latest" target="_blank" rel="noopener">
-        ⬇ <span><span class="en">Download for macOS</span><span class="fr">Télécharger pour macOS</span><br><small>.dmg · signed &amp; notarized</small></span>
+        ⬇ <span><span class="en">Download for macOS</span><span class="fr">Télécharger pour macOS</span><span class="zh">下載 macOS 版</span><br><small>.dmg · signed &amp; notarized</small></span>
       </a>
       <a class="btn btn-ghost" href="https://github.com/TraderAlice/OpenAlice" target="_blank" rel="noopener">
-        <span class="en">What is OpenAlice?</span><span class="fr">Qu'est-ce qu'OpenAlice ?</span>
+        <span class="en">What is OpenAlice?</span><span class="fr">Qu'est-ce qu'OpenAlice ?</span><span class="zh">什麼是 OpenAlice？</span>
       </a>
     </div>
   </div>
@@ -162,111 +161,124 @@
     </div>
     <div class="body">
       <div class="row">
-        <span class="k"><span class="en">Local version</span><span class="fr">Version locale</span></span>
+        <span class="k"><span class="en">Local version</span><span class="fr">Version locale</span><span class="zh">本機版本</span></span>
         <span class="v">v0.9.2</span>
       </div>
       <div class="row">
-        <span class="k"><span class="en">Latest release</span><span class="fr">Dernière release</span></span>
+        <span class="k"><span class="en">Latest release</span><span class="fr">Dernière release</span><span class="zh">最新發行版</span></span>
         <span class="v warn">v0.9.7</span>
       </div>
       <div class="row">
-        <span class="k"><span class="en">Branch</span><span class="fr">Branche</span></span>
+        <span class="k"><span class="en">Branch</span><span class="fr">Branche</span><span class="zh">分支</span></span>
         <span class="v">master</span>
       </div>
       <div class="behind">
-        <span class="en">5 commits behind</span><span class="fr">5 commits de retard</span>
+        <span class="en">5 commits behind</span><span class="fr">5 commits de retard</span><span class="zh">落後 5 個 commit</span>
       </div>
       <div class="acts">
-        <div class="act main"><span class="en">Update</span><span class="fr">Mettre à jour</span></div>
-        <div class="act ghost"><span class="en">Launch</span><span class="fr">Lancer</span></div>
+        <div class="act main"><span class="en">Update</span><span class="fr">Mettre à jour</span><span class="zh">更新</span></div>
+        <div class="act ghost"><span class="en">Launch</span><span class="fr">Lancer</span><span class="zh">啟動</span></div>
       </div>
     </div>
   </div>
 </div></header>
 
 <section class="block"><div class="wrap">
-  <h2><span class="en">What's in that window</span><span class="fr">Ce que contient cette fenêtre</span></h2>
+  <h2><span class="en">What's in that window</span><span class="fr">Ce que contient cette fenêtre</span><span class="zh">這個視窗裡有什麼</span></h2>
   <p class="sub">
     <span class="en">Status, update, launch, install — the gestures you used to do by hand, in one place.</span>
-    <span class="fr">Statut, mise à jour, lancement, installation — les gestes que vous faisiez à la main, au même endroit.</span>
+    <span class="fr">Statut, mise à jour, lancement, installation — les gestes que vous faisiez à la main, au même endroit.</span><span class="zh">狀態、更新、啟動、安裝——你以前手動做的每個動作，都在同一個地方。</span>
   </p>
   <div class="grid">
     <div class="feat"><div class="ic">✅</div>
-      <h3><span class="en">Live status</span><span class="fr">Statut en direct</span></h3>
+      <h3><span class="en">Live status</span><span class="fr">Statut en direct</span><span class="zh">即時狀態</span></h3>
       <p><span class="en">Local version vs. latest release, current branch, and how far behind you are — at a glance.</span>
-         <span class="fr">Version locale vs dernière release, branche et retard sur master — d'un coup d'œil.</span></p></div>
+         <span class="fr">Version locale vs dernière release, branche et retard sur master — d'un coup d'œil.</span><span class="zh">本機版本與最新發行版、分支以及落後 master 的程度——一眼看完。</span></p></div>
     <div class="feat"><div class="ic">⬇️</div>
-      <h3><span class="en">One-click update</span><span class="fr">Mise à jour en un clic</span></h3>
+      <h3><span class="en">One-click update</span><span class="fr">Mise à jour en un clic</span><span class="zh">一鍵更新</span></h3>
       <p><span class="en">Backs up your config, merges master, reinstalls dependencies.</span>
-         <span class="fr">Sauvegarde ta config, merge master, réinstalle les dépendances.</span></p></div>
+         <span class="fr">Sauvegarde ta config, merge master, réinstalle les dépendances.</span><span class="zh">備份你的設定、合併 master、重新安裝相依套件。</span></p></div>
     <div class="feat"><div class="ic">▶️</div>
-      <h3><span class="en">Launch &amp; auto-open UI</span><span class="fr">Lancement + ouverture auto</span></h3>
+      <h3><span class="en">Launch &amp; auto-open UI</span><span class="fr">Lancement + ouverture auto</span><span class="zh">啟動並自動開啟</span></h3>
       <p><span class="en">Dev mode or packaged app — dev mode even opens the interface in your browser when it's ready.</span>
-         <span class="fr">Mode dev ou app packagée — le mode dev ouvre même l'interface dans ton navigateur quand elle est prête.</span></p></div>
+         <span class="fr">Mode dev ou app packagée — le mode dev ouvre même l'interface dans ton navigateur quand elle est prête.</span><span class="zh">開發模式或封裝後的應用程式——開發模式甚至會在介面就緒時自動在瀏覽器中開啟。</span></p></div>
     <div class="feat"><div class="ic">📦</div>
-      <h3><span class="en">Guided install</span><span class="fr">Installation guidée</span></h3>
+      <h3><span class="en">Guided install</span><span class="fr">Installation guidée</span><span class="zh">引導式安裝</span></h3>
       <p><span class="en">No checkout yet? StartAlice clones OpenAlice and runs the first install for you.</span>
-         <span class="fr">Pas de checkout ? StartAlice clone OpenAlice et lance la première installation.</span></p></div>
+         <span class="fr">Pas de checkout ? StartAlice clone OpenAlice et lance la première installation.</span><span class="zh">還沒有 checkout？StartAlice 會為你複製 OpenAlice 並執行第一次安裝。</span></p></div>
     <div class="feat"><div class="ic">💾</div>
-      <h3><span class="en">Config-safe</span><span class="fr">Config préservée</span></h3>
+      <h3><span class="en">Config-safe</span><span class="fr">Config préservée</span><span class="zh">設定不受影響</span></h3>
       <p><span class="en">Your settings live outside the repo — updates never touch them, and are snapshotted first.</span>
-         <span class="fr">Tes réglages vivent hors du repo — les mises à jour n'y touchent jamais, et sont sauvegardés d'abord.</span></p></div>
+         <span class="fr">Tes réglages vivent hors du repo — les mises à jour n'y touchent jamais, et sont sauvegardés d'abord.</span><span class="zh">你的設定存放在版本庫之外——更新永遠不會動到它們，而且會先備份。</span></p></div>
     <div class="feat"><div class="ic">🌍</div>
-      <h3><span class="en">Bilingual</span><span class="fr">Bilingue</span></h3>
+      <h3><span class="en">Bilingual</span><span class="fr">Bilingue</span><span class="zh">雙語</span></h3>
       <p><span class="en">English &amp; French, following your Mac's language, switchable instantly.</span>
-         <span class="fr">Anglais &amp; français, selon la langue de ton Mac, changeable à tout moment.</span></p></div>
+         <span class="fr">Anglais &amp; français, selon la langue de ton Mac, changeable à tout moment.</span><span class="zh">英文與法文，依你的 Mac 語言自動選擇，也可隨時切換。</span></p></div>
   </div>
 </div></section>
 
 <section class="block"><div class="wrap">
   <div class="oa">
-    <h2><span class="en">What is OpenAlice?</span><span class="fr">Qu'est-ce qu'OpenAlice ?</span></h2>
+    <h2><span class="en">What is OpenAlice?</span><span class="fr">Qu'est-ce qu'OpenAlice ?</span><span class="zh">什麼是 OpenAlice？</span></h2>
     <p class="sub">
       <span class="en">OpenAlice is an open-source <b>AI trading agent</b>. Instead of a rigid bot, it gives an AI a managed workspace to research, iterate on quantitative strategies, and act — with live market data, technical analysis and news as context.</span>
-      <span class="fr">OpenAlice est un <b>agent de trading IA</b> open-source. Plutôt qu'un bot rigide, il donne à une IA un espace de travail géré pour faire de la recherche, itérer sur des stratégies quantitatives et agir — avec données de marché, analyse technique et actualités en contexte.</span>
+      <span class="fr">OpenAlice est un <b>agent de trading IA</b> open-source. Plutôt qu'un bot rigide, il donne à une IA un espace de travail géré pour faire de la recherche, itérer sur des stratégies quantitatives et agir — avec données de marché, analyse technique et actualités en contexte.</span><span class="zh">OpenAlice 是一套開源的 <b>AI 交易代理程式</b>。它不是死板的機器人，而是給 AI 一個受管理的工作空間來做研究、迭代量化策略並實際行動——並在情境中提供市場數據、技術分析與新聞。</span>
     </p>
     <ul>
       <li><span class="en"><b>Native agent CLIs</b> run inside persistent, sandboxable workspaces.</span>
-          <span class="fr"><b>CLIs d'agents natifs</b> dans des workspaces persistants et sandboxables.</span></li>
+          <span class="fr"><b>CLIs d'agents natifs</b> dans des workspaces persistants et sandboxables.</span><span class="zh"><b>原生 agent CLI</b>，執行於持久且可沙箱化的工作空間中。</span></li>
       <li><span class="en"><b>Trading context on tap</b> — market data, indicators, news, and a broker SDK over MCP.</span>
-          <span class="fr"><b>Contexte de trading à la demande</b> — données, indicateurs, actualités et un SDK courtier via MCP.</span></li>
+          <span class="fr"><b>Contexte de trading à la demande</b> — données, indicateurs, actualités et un SDK courtier via MCP.</span><span class="zh"><b>隨取隨用的交易情境</b>——透過 MCP 提供數據、指標、新聞與券商 SDK。</span></li>
       <li><span class="en"><b>Separation of concerns</b> — credentials and trading state in their own process; all state is plain files.</span>
-          <span class="fr"><b>Séparation des responsabilités</b> — identifiants et état de trading dans leur propre processus ; tout en fichiers.</span></li>
+          <span class="fr"><b>Séparation des responsabilités</b> — identifiants et état de trading dans leur propre processus ; tout en fichiers.</span><span class="zh"><b>責任分離</b>——憑證與交易狀態各自獨立於自己的行程；一切皆為檔案。</span></li>
     </ul>
   </div>
 </div></section>
 
 <section class="block"><div class="wrap">
-  <h2><span class="en">Install in 3 steps</span><span class="fr">Installer en 3 étapes</span></h2>
+  <h2><span class="en">Install in 3 steps</span><span class="fr">Installer en 3 étapes</span><span class="zh">三步驟安裝</span></h2>
   <p class="sub">&nbsp;</p>
   <div class="steps">
-    <div class="step"><span class="en">Download <code>StartAlice.dmg</code> from the latest release.</span><span class="fr">Télécharge <code>StartAlice.dmg</code> depuis la dernière release.</span></div>
-    <div class="step"><span class="en">Open the DMG and drag <b>StartAlice</b> into <b>Applications</b>.</span><span class="fr">Ouvre le DMG et glisse <b>StartAlice</b> dans <b>Applications</b>.</span></div>
-    <div class="step"><span class="en">Launch it — notarized by Apple, it opens with no warning.</span><span class="fr">Lance-le — notarisé par Apple, il s'ouvre sans avertissement.</span></div>
+    <div class="step"><span class="en">Download <code>StartAlice.dmg</code> from the latest release.</span><span class="fr">Télécharge <code>StartAlice.dmg</code> depuis la dernière release.</span><span class="zh">從最新發行版下載 <code>StartAlice.dmg</code>。</span></div>
+    <div class="step"><span class="en">Open the DMG and drag <b>StartAlice</b> into <b>Applications</b>.</span><span class="fr">Ouvre le DMG et glisse <b>StartAlice</b> dans <b>Applications</b>.</span><span class="zh">開啟 DMG，把 <b>StartAlice</b> 拖入 <b>應用程式</b>。</span></div>
+    <div class="step"><span class="en">Launch it — notarized by Apple, it opens with no warning.</span><span class="fr">Lance-le — notarisé par Apple, il s'ouvre sans avertissement.</span><span class="zh">啟動它——已通過 Apple 公證，開啟時不會出現警告。</span></div>
   </div>
 </div></section>
 
 <footer><div class="wrap">
   <p>
     <span class="en">Built by <a href="https://lauriat.fr" target="_blank" rel="noopener">Vincent Lauriat</a> · Open-source under MIT · </span>
-    <span class="fr">Réalisé par <a href="https://lauriat.fr" target="_blank" rel="noopener">Vincent Lauriat</a> · Open-source sous licence MIT · </span>
+    <span class="fr">Réalisé par <a href="https://lauriat.fr" target="_blank" rel="noopener">Vincent Lauriat</a> · Open-source sous licence MIT · </span><span class="zh">由 <a href="https://lauriat.fr" target="_blank" rel="noopener">Vincent Lauriat</a> 製作 · 以 MIT 授權開源 · </span>
     <a href="https://github.com/vincentlauriat/StartAlice" target="_blank" rel="noopener">GitHub</a>
   </p>
 </div></footer>
 
 <script>
+  /* zh-Hant et non zh : sur un système configuré en chinois simplifié, un
+     simple `zh` laisse le navigateur choisir une fonte Han simplifiée, qui
+     rend certains caractères traditionnels dans la mauvaise forme. */
+  var LANG_TAG={en:'en',fr:'fr',zh:'zh-Hant'};
   function setLang(l){
-    document.body.classList.remove('lang-en','lang-fr');
+    if(!LANG_TAG[l]) l='en';
+    document.body.classList.remove('lang-en','lang-fr','lang-zh');
     document.body.classList.add('lang-'+l);
-    document.documentElement.lang=l;
-    document.getElementById('l-en').classList.toggle('on',l==='en');
-    document.getElementById('l-fr').classList.toggle('on',l==='fr');
-    try{localStorage.setItem('sa-lang',l)}catch(e){}
+    document.documentElement.lang=LANG_TAG[l];
+    /* On boucle sur les boutons au lieu de les nommer un par un : ajouter une
+       4e langue ne demandera alors aucune retouche de ce script. */
+    document.querySelectorAll('.langtog button').forEach(function(b){
+      var on=b.dataset.lang===l;
+      b.classList.toggle('on',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+    try{localStorage.setItem('vl-lang',l)}catch(e){}
   }
   (function(){
-    var saved;try{saved=localStorage.getItem('sa-lang')}catch(e){}
-    var l=saved||((navigator.language||'en').slice(0,2)==='fr'?'fr':'en');
-    setLang(l);
+    var saved;try{saved=localStorage.getItem('vl-lang')}catch(e){}
+    var n=(navigator.language||'en').slice(0,2).toLowerCase();
+    /* Le traditionnel est servi a tout visiteur sinophone, y compris zh-CN :
+       c'est la seule variante chinoise disponible, et la renvoyer vaut mieux
+       que de rabattre ce visiteur sur l'anglais. */
+    setLang(saved||(n==='zh'?'zh':(n==='fr'?'fr':'en')));
   })();
 </script>
 </body>
