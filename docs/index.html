@@ -10,10 +10,14 @@
 <meta property="og:image" content="https://vincentlauriat.github.io/StartAlice/banner.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/base.css">
 <style>
   :root{
     --bg:#0b1020; --bg2:#0f1630; --card:#141c38; --line:#243056;
-    --txt:#eaf0ff; --muted:#a7b3d6; --accent:#5b8bff; --accent2:#7c5cff;
+    --txt:#eaf0ff; --muted:#a7b3d6; --accent:#84cc16; --accent2:#a3e635; --on-accent:#08090d;
     --radius:16px; --maxw:1000px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -38,7 +42,7 @@
   .langtog{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
   .langtog button{background:transparent;color:var(--muted);border:0;padding:5px 12px;
     font-size:.82rem;cursor:pointer;font-weight:600}
-  .langtog button.on{background:var(--accent);color:#fff}
+  .langtog button.on{background:var(--accent);color:var(--on-accent)}
   .ghlink{color:var(--muted);font-size:.9rem;font-weight:600}
   /* Hero */
   header{padding:72px 0 40px;text-align:center}
@@ -53,8 +57,8 @@
   .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:12px;
     font-weight:700;font-size:1rem;transition:transform .12s ease,box-shadow .2s ease;border:1px solid transparent}
   .btn:hover{transform:translateY(-2px)}
-  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
-    box-shadow:0 12px 30px rgba(91,139,255,.35)}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--on-accent);
+    box-shadow:0 12px 30px rgba(132,204,22,.35)}
   .btn-ghost{background:var(--card);border-color:var(--line);color:var(--txt)}
   .btn small{font-weight:500;opacity:.75;font-size:.78rem}
   /* Sections */
@@ -80,23 +84,16 @@
   .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 56px;position:relative}
   .step::before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:50%;
     transform:translateY(-50%);width:28px;height:28px;border-radius:50%;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--on-accent);
     display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem}
   /* Footer */
   footer{padding:40px 0 60px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.9rem}
   footer a{color:var(--accent);font-weight:600}
   code{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:.86em}
-
-  /* a11y : respecter la préférence système de mouvement réduit */
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{
-      animation-duration:.01ms !important;animation-iteration-count:1 !important;
-      transition-duration:.01ms !important;scroll-behavior:auto !important;
-    }
-  }
 </style>
 </head>
 <body class="lang-en">
+<a class="skip" href="#top"><span class="en">Skip to content</span><span class="fr">Aller au contenu</span></a>
 
 <nav><div class="wrap">
   <img src="icon.png" alt="StartAlice"><b>StartAlice</b>
@@ -108,7 +105,7 @@
   <a class="ghlink" href="https://github.com/vincentlauriat/StartAlice" target="_blank" rel="noopener">GitHub ↗</a>
 </div></nav>
 
-<header><div class="wrap">
+<header id="top"><div class="wrap">
   <img class="banner" src="banner.png" alt="StartAlice">
   <h1>StartAlice</h1>
   <p class="tagline">
