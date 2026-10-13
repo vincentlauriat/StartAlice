@@ -1,0 +1,294 @@
+{
+  "name": "StartAlice",
+  "no": "01",
+  "repo": "vincentlauriat/StartAlice",
+  "url": "https://vincentlauriat.github.io/StartAlice/",
+  "accent": "#84cc16",
+  "meta": {
+    "title": "StartAlice — One-click updater & launcher for OpenAlice",
+    "description": "StartAlice is a native macOS app that updates and launches OpenAlice, the open-source AI trading agent, in one click. Bilingual EN/FR, signed & notarized.",
+    "og_image": "https://vincentlauriat.github.io/StartAlice/banner.png",
+    "favicon": "icon.png"
+  },
+  "role": {
+    "en": "One-click updater &amp; launcher for OpenAlice",
+    "fr": "Mise à jour et lancement d'OpenAlice en un clic",
+    "zh": "OpenAlice 的一鍵更新與啟動工具"
+  },
+  "thesis": {
+    "en": "OpenAlice ships new betas almost daily. One window, one button.",
+    "fr": "OpenAlice sort de nouvelles betas presque chaque jour. Une fenêtre, un bouton.",
+    "zh": "OpenAlice 幾乎每天都推出新的 beta 版。一個視窗，一個按鈕。"
+  },
+  "lede": {
+    "en": "StartAlice turns the whole update-and-run ritual into a single window — for OpenAlice, the open-source AI trading agent.",
+    "fr": "StartAlice condense tout le rituel « mettre à jour puis lancer » en une seule fenêtre — pour OpenAlice, l'agent de trading IA open-source.",
+    "zh": "StartAlice 把「先更新再啟動」的整套流程濃縮到單一視窗——為開源 AI 交易代理程式 OpenAlice 而設計。"
+  },
+  "actions": [
+    {
+      "primary": true,
+      "href": "https://github.com/vincentlauriat/StartAlice/releases/latest",
+      "label": {
+        "en": "Download for macOS",
+        "fr": "Télécharger pour macOS",
+        "zh": "下載 macOS 版"
+      }
+    },
+    {
+      "href": "https://github.com/TraderAlice/OpenAlice",
+      "label": {
+        "en": "What is OpenAlice?",
+        "fr": "Qu'est-ce qu'OpenAlice ?",
+        "zh": "什麼是 OpenAlice？"
+      }
+    }
+  ],
+  "facts": [
+    {
+      "k": {
+        "en": "Requires",
+        "fr": "Configuration",
+        "zh": "系統需求"
+      },
+      "v": "macOS 13+"
+    },
+    {
+      "k": {
+        "en": "Distribution",
+        "fr": "Distribution",
+        "zh": "發行"
+      },
+      "v": {
+        "en": ".dmg · signed &amp; notarized",
+        "fr": ".dmg · signé et notarisé",
+        "zh": ".dmg · 已簽章與公證"
+      }
+    },
+    {
+      "k": {
+        "en": "Languages",
+        "fr": "Langues",
+        "zh": "語言"
+      },
+      "v": "EN / FR"
+    },
+    {
+      "k": {
+        "en": "Licence",
+        "fr": "Licence",
+        "zh": "授權"
+      },
+      "v": "MIT"
+    }
+  ],
+  "opener": {
+    "h": {
+      "en": "What's in that window",
+      "fr": "Ce que contient cette fenêtre",
+      "zh": "這個視窗裡有什麼"
+    },
+    "p": {
+      "en": "Status, update, launch, install — the gestures you used to do by hand, in one place.",
+      "fr": "Statut, mise à jour, lancement, installation — les gestes que vous faisiez à la main, au même endroit.",
+      "zh": "狀態、更新、啟動、安裝——你以前手動做的每個動作，都在同一個地方。"
+    }
+  },
+  "features": [
+    {
+      "h": {
+        "en": "Live status",
+        "fr": "Statut en direct",
+        "zh": "即時狀態"
+      },
+      "p": {
+        "en": "Local version vs. latest release, current branch, and how far behind you are — at a glance.",
+        "fr": "Version locale vs dernière release, branche et retard sur master — d'un coup d'œil.",
+        "zh": "本機版本與最新發行版、分支以及落後 master 的程度——一眼看完。"
+      }
+    },
+    {
+      "h": {
+        "en": "One-click update",
+        "fr": "Mise à jour en un clic",
+        "zh": "一鍵更新"
+      },
+      "p": {
+        "en": "Backs up your config, merges master, reinstalls dependencies.",
+        "fr": "Sauvegarde ta config, merge master, réinstalle les dépendances.",
+        "zh": "備份你的設定、合併 master、重新安裝相依套件。"
+      }
+    },
+    {
+      "h": {
+        "en": "Launch &amp; auto-open UI",
+        "fr": "Lancement + ouverture auto",
+        "zh": "啟動並自動開啟"
+      },
+      "p": {
+        "en": "Dev mode or packaged app — dev mode even opens the interface in your browser when it's ready.",
+        "fr": "Mode dev ou app packagée — le mode dev ouvre même l'interface dans ton navigateur quand elle est prête.",
+        "zh": "開發模式或封裝後的應用程式——開發模式甚至會在介面就緒時自動在瀏覽器中開啟。"
+      }
+    },
+    {
+      "h": {
+        "en": "Guided install",
+        "fr": "Installation guidée",
+        "zh": "引導式安裝"
+      },
+      "p": {
+        "en": "No checkout yet? StartAlice clones OpenAlice and runs the first install for you.",
+        "fr": "Pas de checkout ? StartAlice clone OpenAlice et lance la première installation.",
+        "zh": "還沒有 checkout？StartAlice 會為你複製 OpenAlice 並執行第一次安裝。"
+      }
+    },
+    {
+      "h": {
+        "en": "Config-safe",
+        "fr": "Config préservée",
+        "zh": "設定不受影響"
+      },
+      "p": {
+        "en": "Your settings live outside the repo — updates never touch them, and are snapshotted first.",
+        "fr": "Tes réglages vivent hors du repo — les mises à jour n'y touchent jamais, et sont sauvegardés d'abord.",
+        "zh": "你的設定存放在版本庫之外——更新永遠不會動到它們，而且會先備份。"
+      }
+    },
+    {
+      "h": {
+        "en": "Bilingual",
+        "fr": "Bilingue",
+        "zh": "雙語"
+      },
+      "p": {
+        "en": "English &amp; French, following your Mac's language, switchable instantly.",
+        "fr": "Anglais &amp; français, selon la langue de ton Mac, changeable à tout moment.",
+        "zh": "英文與法文，依你的 Mac 語言自動選擇，也可隨時切換。"
+      }
+    }
+  ],
+  "chapters": [
+    {
+      "id": "openalice",
+      "h": {
+        "en": "What is OpenAlice?",
+        "fr": "Qu'est-ce qu'OpenAlice ?",
+        "zh": "什麼是 OpenAlice？"
+      },
+      "p": {
+        "en": "OpenAlice is an open-source <b>AI trading agent</b>. Instead of a rigid bot, it gives an AI a managed workspace to research, iterate on quantitative strategies, and act — with live market data, technical analysis and news as context.",
+        "fr": "OpenAlice est un <b>agent de trading IA</b> open-source. Plutôt qu'un bot rigide, il donne à une IA un espace de travail géré pour faire de la recherche, itérer sur des stratégies quantitatives et agir — avec données de marché, analyse technique et actualités en contexte.",
+        "zh": "OpenAlice 是一套開源的 <b>AI 交易代理程式</b>。它不是死板的機器人，而是給 AI 一個受管理的工作空間來做研究、迭代量化策略並實際行動——並在情境中提供市場數據、技術分析與新聞。"
+      },
+      "blocks": [
+        {
+          "type": "specs",
+          "items": [
+            {
+              "h": {
+                "en": "Native agent CLIs",
+                "fr": "CLIs d'agents natifs",
+                "zh": "原生 agent CLI"
+              },
+              "p": {
+                "en": "Run inside persistent, sandboxable workspaces.",
+                "fr": "Dans des workspaces persistants et sandboxables.",
+                "zh": "執行於持久且可沙箱化的工作空間中。"
+              }
+            },
+            {
+              "h": {
+                "en": "Trading context on tap",
+                "fr": "Contexte de trading à la demande",
+                "zh": "隨取隨用的交易情境"
+              },
+              "p": {
+                "en": "Market data, indicators, news, and a broker SDK over MCP.",
+                "fr": "Données, indicateurs, actualités et un SDK courtier via MCP.",
+                "zh": "透過 MCP 提供數據、指標、新聞與券商 SDK。"
+              }
+            },
+            {
+              "h": {
+                "en": "Separation of concerns",
+                "fr": "Séparation des responsabilités",
+                "zh": "責任分離"
+              },
+              "p": {
+                "en": "Credentials and trading state in their own process; all state is plain files.",
+                "fr": "Identifiants et état de trading dans leur propre processus ; tout en fichiers.",
+                "zh": "憑證與交易狀態各自獨立於自己的行程；一切皆為檔案。"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "install",
+      "h": {
+        "en": "Install in 3 steps",
+        "fr": "Installer en 3 étapes",
+        "zh": "三步驟安裝"
+      },
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            {
+              "en": "Download <code>StartAlice.dmg</code> from the latest release.",
+              "fr": "Télécharge <code>StartAlice.dmg</code> depuis la dernière release.",
+              "zh": "從最新發行版下載 <code>StartAlice.dmg</code>。"
+            },
+            {
+              "en": "Open the DMG and drag <b>StartAlice</b> into <b>Applications</b>.",
+              "fr": "Ouvre le DMG et glisse <b>StartAlice</b> dans <b>Applications</b>.",
+              "zh": "開啟 DMG，把 <b>StartAlice</b> 拖入 <b>應用程式</b>。"
+            },
+            {
+              "en": "Launch it — notarized by Apple, it opens with no warning.",
+              "fr": "Lance-le — notarisé par Apple, il s'ouvre sans avertissement.",
+              "zh": "啟動它——已通過 Apple 公證，開啟時不會出現警告。"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "close": {
+    "h": {
+      "en": "One window, one button.",
+      "fr": "Une fenêtre, un bouton.",
+      "zh": "一個視窗，一個按鈕。"
+    },
+    "actions": [
+      {
+        "primary": true,
+        "href": "https://github.com/vincentlauriat/StartAlice/releases/latest",
+        "label": {
+          "en": "Download for macOS",
+          "fr": "Télécharger pour macOS",
+          "zh": "下載 macOS 版"
+        }
+      },
+      {
+        "href": "https://github.com/TraderAlice/OpenAlice",
+        "label": {
+          "en": "What is OpenAlice?",
+          "fr": "Qu'est-ce qu'OpenAlice ?",
+          "zh": "什麼是 OpenAlice？"
+        }
+      }
+    ]
+  },
+  "colophon": {
+    "notes": [
+      {
+        "en": "Built by <a href=\"https://lauriat.fr\">Vincent Lauriat</a>",
+        "fr": "Réalisé par <a href=\"https://lauriat.fr\">Vincent Lauriat</a>",
+        "zh": "由 <a href=\"https://lauriat.fr\">Vincent Lauriat</a> 製作"
+      }
+    ]
+  }
+}
